@@ -30,7 +30,7 @@ namespace Dialogue
             {
                 dialogueTxt[i - 2] = fullDialogue[i];
             }
-
+//
         }
     }
 }
