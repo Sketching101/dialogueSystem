@@ -12,14 +12,120 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1d7c194a4632140b2ae20d3291ed88, type: 3}
   m_Name: Jimmy
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: fc5b036bcd89bb24aa31343bc1b97af1, type: 3}
+    - {fileID: 21300000, guid: d1c7a3166d94c054d900763607d2b5a5, type: 3}
+    - {fileID: 21300000, guid: 8e0d0f56dedd0c844be275b70e587445, type: 3}
+    - {fileID: 21300000, guid: 07affbc934861f9408f39002a97610ea, type: 3}
+    - {fileID: 21300000, guid: 54b0e8fba6517224c8d032b3302ccfec, type: 3}
+    - {fileID: 21300000, guid: 5fac337817a9b48439edf20f0431fae3, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: mood
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Dialogue.Mood, Assembly-CSharp],[Dialogue.MoodSprite,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Dialogue.Mood, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: Dialogue.MoodSprite, Assembly-CSharp
+    - Name: mood
+      Entry: 3
+      Data: 0
+    - Name: leftSprite
+      Entry: 10
+      Data: 0
+    - Name: rightSprite
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: Dialogue.MoodSprite, Assembly-CSharp
+    - Name: mood
+      Entry: 3
+      Data: 1
+    - Name: leftSprite
+      Entry: 10
+      Data: 2
+    - Name: rightSprite
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: Dialogue.MoodSprite, Assembly-CSharp
+    - Name: mood
+      Entry: 3
+      Data: 2
+    - Name: leftSprite
+      Entry: 10
+      Data: 4
+    - Name: rightSprite
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   charID: jimmy00
-  mood:
-  - mood: 0
-    lookLeftSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-    lookRightSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  - mood: 1
-    lookLeftSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-    lookRightSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   charBio:
     charName: Jimmy
     age: 20

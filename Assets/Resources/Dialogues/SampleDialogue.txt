@@ -1,2 +1,5 @@
-#[start][[L][jimmy00][sad]][[R][billy00][angry]]
-#[L][jimmy00][sad]: Buttons!
+#[start][[jimmy00][sad][L]][[billy00][angry][R]]
+#[jimmy00][sad][L][R]: [Buttons!]
+#[jimmy00][happy][R][R]: [Line 2!]
+#[jimmy00][happy][R][L]: [Line 2!]
+#[billy00][angry][R]: [No?]

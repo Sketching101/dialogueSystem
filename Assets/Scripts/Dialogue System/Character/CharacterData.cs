@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Dialogue {
     [CreateAssetMenu(fileName = "NewDialogueCharacter", menuName = "DialogueCharacter")]
-    public class CharacterData : ScriptableObject
+    public class CharacterData : SerializedScriptableObject
     {
         public string charID;
-        public MoodSprite[] mood;
+        [DictionaryDrawerSettings(KeyLabel = "Mood", ValueLabel = "Mood Sprite")]
+        public Dictionary<Mood, MoodSprite> mood = new Dictionary<Mood, MoodSprite>();
         [BoxGroup("Character Information")]
         public Bio charBio;
-
     }
 
     [System.Serializable]
@@ -27,12 +27,21 @@ namespace Dialogue {
     {
         public Mood mood;
 
-        public Sprite lookLeftSprite;
-        public Sprite lookRightSprite;
+        public Sprite leftSprite;
+        public Sprite rightSprite;
     }
 
     public enum Mood
     {
-        Happy, Sad, Angry, 
+        Happy, Sad, Angry, INVALID
+    }
+    public enum Position
+    {
+        L, R, Center, INVALID
+    }
+
+    public enum Dir
+    {
+        L, R, INVALID
     }
 }
