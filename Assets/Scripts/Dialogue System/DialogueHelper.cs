@@ -15,7 +15,7 @@ namespace Dialogue
         /// <returns>Whether or not the enum was found</returns>
         public static bool GetEnum<T>(string str, out T result) where T : struct
         {
-            Debug.Log(str);
+            //Debug.Log(str);
             return System.Enum.TryParse<T>(str, true, out result);
         }
     }

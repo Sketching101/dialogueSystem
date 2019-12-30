@@ -11,11 +11,18 @@ namespace Dialogue
 
     public class DialogueParser : SerializedMonoBehaviour
     {
+        [Header("Text Items")]
         public TextAsset parseDialogue;
         public TextMeshProUGUI dialogueBox;
 
-        public Image lSpriteCanvas, rSpriteCanvas;
+        [Header("Sprite Items")]
+        public Image[] lSpriteCanvas;
+        public Image[] rSpriteCanvas;
+        public Color activeChar;
+        public Color passiveChar;
 
+        [Header("Dialogue Items")]
+        public DialogueMap dialogueMap;
         public string dialogueSetup;
         public DialogueLine[] dialogueTxt;
         public int dialogueIndex = 0;
@@ -23,10 +30,16 @@ namespace Dialogue
         [DictionaryDrawerSettings(KeyLabel = "Character ID", ValueLabel = "Character Asset")]
         public Dictionary<string, CharacterData> characters = new Dictionary<string, CharacterData>();
 
+        private Dictionary<string, charInDialogue> chars = new Dictionary<string, charInDialogue>();
+
         private void Awake()
         {
             dialogueIndex = 0;
             InitializeDialogue();
+            if(dialogueMap == null)
+            {
+                dialogueMap = GetComponent<DialogueMap>();
+            }
         }
 
         private void Update()
@@ -43,12 +56,16 @@ namespace Dialogue
             dialogueSetup = fullDialogue[1];
             dialogueTxt = new DialogueLine[fullDialogue.Length - 2];
 
+
             for(int i = 2; i < fullDialogue.Length; i++)
             {
                 DialogueLine dLine;
                 TextToDialogueLine(fullDialogue[i], out dLine);
                 dialogueTxt[i - 2] = dLine;
+                if (!chars.ContainsKey(dLine.character.charID))
+                    chars.Add(dLine.character.charID, dLine.character);
             }
+
         }
 
         /// <summary>
@@ -115,8 +132,12 @@ namespace Dialogue
         {
             if (dialogueIndex < dialogueTxt.Length)
             {
-                DrawDialogueLine(dialogueTxt[dialogueIndex]);
+                DrawDialogueScene(dialogueTxt[dialogueIndex]);
                 dialogueIndex++;
+
+                // Use empty dialogue to change expressions
+                if (dialogueTxt[dialogueIndex - 1].dialogueText == "")
+                    DrawCurrentDialogue();
             } else
             {
                 OnDialogueEnd();
@@ -128,43 +149,93 @@ namespace Dialogue
 
         }
 
-        public void DrawDialogueLine(DialogueLine line)
+        public void DrawDialogueScene(DialogueLine line)
         {
-            Image drawTo = lSpriteCanvas;
-            Sprite img = characters[line.charID].mood[line.mood].leftSprite;
-            if (line.pos == Position.L)
+            foreach (Image img in lSpriteCanvas)
             {
-                drawTo = lSpriteCanvas;
-                img = characters[line.charID].mood[line.mood].leftSprite;
+                img.color = new Color(0, 0, 0, 0);
             }
-            else if (line.pos == Position.R)
+            foreach(Image img in rSpriteCanvas)
             {
-                drawTo = rSpriteCanvas;
-                img = characters[line.charID].mood[line.mood].rightSprite;
+                img.color = new Color(0, 0, 0, 0);
             }
-            drawTo.color = Color.white;
-            drawTo.sprite = img;
 
-            dialogueBox.text = line.dialogueText;
+            chars[line.character.charID] = line.character;
+
+            DrawCharacter(line.character, true);
+            if (debug)
+                Debug.Break();
+            foreach (charInDialogue character in chars.Values)
+            {
+                if(character.charID != line.character.charID)
+                    DrawCharacter(character, false);
+            }
+
+            dialogueBox.text = line.dialogueText; 
+
+        }
+        public bool debug = false;
+        public void DrawCharacter(charInDialogue character, bool addToDict)
+        {
+            if (!dialogueMap.charactersDict.ContainsKey(character.charID) && !addToDict)
+                return;
+
+            Image drawTo = lSpriteCanvas[0];
+            Sprite img = characters[character.charID].mood[character.mood].leftSprite;
+
+            dialogueMap.MoveCharacter(character.charID, character.pos);
+
+            if (character.pos == Position.L)
+            {
+                drawTo = lSpriteCanvas[dialogueMap.GetCharacterPosition(character.charID)];
+            }
+            else if (character.pos == Position.R)
+            {
+                drawTo = rSpriteCanvas[dialogueMap.GetCharacterPosition(character.charID)];
+            }
+
+            if (character.lookDir == Dir.L)
+            {
+                img = characters[character.charID].mood[character.mood].leftSprite;
+            }
+            else if (character.lookDir == Dir.R)
+            {
+                img = characters[character.charID].mood[character.mood].rightSprite;
+            }
+
+            drawTo.color = activeChar;
+            drawTo.sprite = img;
         }
     }
 
     [System.Serializable]
     public struct DialogueLine
     {
+        public charInDialogue character;
+        public string dialogueText;
+
+        public DialogueLine(string charID_in, Mood mood_in, Position pos_in, Dir lookDir_in, string dialogueText_in)
+        {
+            character = new charInDialogue(charID_in, mood_in, pos_in, lookDir_in);
+            dialogueText = dialogueText_in;
+        }
+    }
+
+    public struct charInDialogue
+    {
         public string charID;
         public Mood mood;
         public Position pos;
         public Dir lookDir;
-        public string dialogueText;
 
-        public DialogueLine(string charID_in, Mood mood_in, Position pos_in, Dir lookDir_in, string dialogueText_in)
+        public charInDialogue(string charID_in, Mood mood_in, Position pos_in, Dir lookDir_in)
         {
             charID = charID_in;
             mood = mood_in;
             pos = pos_in;
             lookDir = lookDir_in;
-            dialogueText = dialogueText_in;
         }
+
+
     }
 }

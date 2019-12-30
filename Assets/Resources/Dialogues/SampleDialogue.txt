@@ -1,5 +1,9 @@
-#[start][[jimmy00][sad][L]][[billy00][angry][R]]
-#[jimmy00][sad][L][R]: [Buttons!]
-#[jimmy00][happy][R][R]: [Line 2!]
-#[jimmy00][happy][R][L]: [Line 2!]
-#[billy00][angry][R]: [No?]
+/* Separator | [tag|mood|side|facing] ... */
+#[10][[anna00][sad][L][L]][[gaius00][angry][R][L]]
+/* tag|mood|side|facing|dialogue| */
+#[anna00][sad][L][R]: [Buttons!]
+#[anna00][happy][R][R]: [Line 2!]
+#[anna00][happy][R][L]: [Line 3!]
+#[anna00][angry][R][R]: [Line 4? What even is a line?]
+#[anna00][sad][L][L]: []
+#[gaius00][happy][L][R]: [Hi I'm here now...]
