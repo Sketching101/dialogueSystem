@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 124864198}
   - component: {fileID: 124864197}
   m_Layer: 5
-  m_Name: R Character 3
+  m_Name: R Character 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 179081233}
   - component: {fileID: 179081232}
   m_Layer: 5
-  m_Name: L Character 5
+  m_Name: L Character 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -397,6 +397,7 @@ MonoBehaviour:
   - dialogueText: 
   - dialogueText: Hi I'm here now...
   dialogueIndex: 0
+  debug: 0
 --- !u!114 &392671945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,14 +444,16 @@ MonoBehaviour:
   - 
   - 
   - 
-  - jimmy00
-  - billy00
+  - 
+  - 
   rightCharacters:
   - 
   - 
   - 
   - 
   - 
+  lCount: 0
+  rCount: 0
 --- !u!1 &504925057
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +466,7 @@ GameObject:
   - component: {fileID: 504925060}
   - component: {fileID: 504925059}
   m_Layer: 5
-  m_Name: R Character 2
+  m_Name: R Character 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -536,7 +539,7 @@ GameObject:
   - component: {fileID: 507563962}
   - component: {fileID: 507563961}
   m_Layer: 5
-  m_Name: L Character 4
+  m_Name: L Character 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -922,7 +925,7 @@ GameObject:
   - component: {fileID: 817082482}
   - component: {fileID: 817082481}
   m_Layer: 5
-  m_Name: R Character 4
+  m_Name: R Character 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1075,6 +1078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1025205709}
+  - component: {fileID: 1025205710}
   m_Layer: 5
   m_Name: Right Canvases
   m_TagString: Untagged
@@ -1106,6 +1110,22 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: 0}
   m_SizeDelta: {x: 400, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1025205710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025205708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23cb21c65da30fd479fa6ed83975fd8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 1
+  dMap: {fileID: 392671945}
+  parentTr: {fileID: 0}
+  spriteTransforms: []
 --- !u!1 &1082664940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,6 +1236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1313992572}
+  - component: {fileID: 1313992573}
   m_Layer: 5
   m_Name: Left Canvases
   m_TagString: Untagged
@@ -1247,6 +1268,22 @@ RectTransform:
   m_AnchoredPosition: {x: -250, y: 0}
   m_SizeDelta: {x: 400, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1313992573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313992571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23cb21c65da30fd479fa6ed83975fd8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: 0
+  dMap: {fileID: 392671945}
+  parentTr: {fileID: 0}
+  spriteTransforms: []
 --- !u!1 &1449583974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,7 +1425,7 @@ GameObject:
   - component: {fileID: 1478821702}
   - component: {fileID: 1478821701}
   m_Layer: 5
-  m_Name: R Character 1
+  m_Name: R Character 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1461,7 +1498,7 @@ GameObject:
   - component: {fileID: 1745990199}
   - component: {fileID: 1745990198}
   m_Layer: 5
-  m_Name: L Character 2
+  m_Name: L Character 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1534,7 +1571,7 @@ GameObject:
   - component: {fileID: 2022526819}
   - component: {fileID: 2022526818}
   m_Layer: 5
-  m_Name: L Character 3
+  m_Name: L Character 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1638,7 +1675,7 @@ GameObject:
   - component: {fileID: 2040916410}
   - component: {fileID: 2040916409}
   m_Layer: 5
-  m_Name: R Character 5
+  m_Name: R Character 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1711,7 +1748,7 @@ GameObject:
   - component: {fileID: 2095055542}
   - component: {fileID: 2095055541}
   m_Layer: 5
-  m_Name: L Character 1
+  m_Name: L Character 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
