@@ -276,8 +276,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 392671943}
-  - component: {fileID: 392671944}
   - component: {fileID: 392671945}
+  - component: {fileID: 392671944}
   m_Layer: 0
   m_Name: Dialogue System
   m_TagString: Untagged
@@ -397,7 +397,6 @@ MonoBehaviour:
   - dialogueText: 
   - dialogueText: Hi I'm here now...
   dialogueIndex: 0
-  debug: 0
 --- !u!114 &392671945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,10 +418,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: charactersDict
+    - Name: characters
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Int32,
-        mscorlib]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Dialogue.CharacterInDialogue,
+        Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
@@ -439,19 +438,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  separator: 5
-  leftCharacters:
-  - 
-  - 
-  - 
-  - 
-  - 
-  rightCharacters:
-  - 
-  - 
-  - 
-  - 
-  - 
   lCount: 0
   rCount: 0
 --- !u!1 &504925057
@@ -1122,8 +1108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23cb21c65da30fd479fa6ed83975fd8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 1
-  dMap: {fileID: 392671945}
+  pos: 0
+  dMap: {fileID: 0}
   parentTr: {fileID: 0}
   spriteTransforms: []
 --- !u!1 &1082664940
@@ -1227,6 +1213,104 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1153344016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1153344017}
+  - component: {fileID: 1153344018}
+  m_Layer: 0
+  m_Name: Dialogue Data Structures
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1153344017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153344016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1340617530}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1153344018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153344016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae822b5d8896754bad321965afc7d68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: eb3f012dbcf617f4884f5616204eed2d, type: 2}
+    - {fileID: 11400000, guid: f286858c46ca0114ea299ff1ce974cfd, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: characters
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Dialogue.CharacterData,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: anna00
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: gaius00
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!1 &1313992571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,9 +1365,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: 0
-  dMap: {fileID: 392671945}
+  dMap: {fileID: 0}
   parentTr: {fileID: 0}
   spriteTransforms: []
+--- !u!1 &1340617529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1340617530}
+  m_Layer: 0
+  m_Name: Enduring Objects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1340617530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340617529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1153344017}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1449583974
 GameObject:
   m_ObjectHideFlags: 0

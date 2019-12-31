@@ -128,20 +128,10 @@ namespace Dialogue
             return isValid;
         }
 
-        public void DrawCurrentDialogue()
-        {
-            if (dialogueIndex < dialogueTxt.Length)
-            {
-                DrawDialogueScene(dialogueTxt[dialogueIndex]);
-                dialogueIndex++;
 
-                // Use empty dialogue to change expressions
-                if (dialogueTxt[dialogueIndex - 1].dialogueText == "")
-                    DrawCurrentDialogue();
-            } else
-            {
-                OnDialogueEnd();
-            }
+        public virtual void OnDialogueStart()
+        {
+
         }
 
         public virtual void OnDialogueEnd()
@@ -149,63 +139,21 @@ namespace Dialogue
 
         }
 
-        public void DrawDialogueScene(DialogueLine line)
+        public virtual void OnDialogueLineStart()
         {
-            foreach (Image img in lSpriteCanvas)
-            {
-                img.color = new Color(0, 0, 0, 0);
-            }
-            foreach(Image img in rSpriteCanvas)
-            {
-                img.color = new Color(0, 0, 0, 0);
-            }
-
-            chars[line.character.charID] = line.character;
-
-            DrawCharacter(line.character, true);
-            if (debug)
-                Debug.Break();
-            foreach (charInDialogue character in chars.Values)
-            {
-                if(character.charID != line.character.charID)
-                    DrawCharacter(character, false);
-            }
-
-            dialogueBox.text = line.dialogueText; 
 
         }
-        public bool debug = false;
-        public void DrawCharacter(charInDialogue character, bool addToDict)
+
+        public virtual void OnDialogueLineEnd()
         {
-            if (!dialogueMap.charactersDict.ContainsKey(character.charID) && !addToDict)
-                return;
 
-            Image drawTo = lSpriteCanvas[0];
-            Sprite img = characters[character.charID].mood[character.mood].leftSprite;
-
-            dialogueMap.MoveCharacter(character.charID, character.pos);
-
-            if (character.pos == Position.L)
-            {
-                drawTo = lSpriteCanvas[dialogueMap.GetCharacterPosition(character.charID)];
-            }
-            else if (character.pos == Position.R)
-            {
-                drawTo = rSpriteCanvas[dialogueMap.GetCharacterPosition(character.charID)];
-            }
-
-            if (character.lookDir == Dir.L)
-            {
-                img = characters[character.charID].mood[character.mood].leftSprite;
-            }
-            else if (character.lookDir == Dir.R)
-            {
-                img = characters[character.charID].mood[character.mood].rightSprite;
-            }
-
-            drawTo.color = activeChar;
-            drawTo.sprite = img;
         }
+
+        public virtual void OnDialogueLineNext()
+        {
+
+        }
+
     }
 
     [System.Serializable]

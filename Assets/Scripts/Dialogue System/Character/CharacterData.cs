@@ -9,7 +9,7 @@ namespace Dialogue {
     {
         public string charID;
         [DictionaryDrawerSettings(KeyLabel = "Mood", ValueLabel = "Mood Sprite")]
-        public Dictionary<Mood, MoodSprite> mood = new Dictionary<Mood, MoodSprite>();
+        public Dictionary<Mood, MoodSprite> sprites = new Dictionary<Mood, MoodSprite>();
         [BoxGroup("Character Information")]
         public Bio charBio;
     }

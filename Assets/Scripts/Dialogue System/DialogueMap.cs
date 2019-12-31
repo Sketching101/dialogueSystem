@@ -11,195 +11,113 @@ namespace Dialogue
 {
     public class DialogueMap : SerializedMonoBehaviour
     {
-        // Separator is the first index of the right side
-        public int separator = 5;
+        // Data structures to hold 
+        [DictionaryDrawerSettings(KeyLabel = "Character ID", ValueLabel = "Character Instance")]
+        [SerializeField]
+        private Dictionary<string, CharacterInDialogue> characters = new Dictionary<string, CharacterInDialogue>();
+        // Contains a list of charIDs
+        private string[] charsByPos = new string[10];
 
-        public Dictionary<string, int> charactersDict = new Dictionary<string, int>();
-        
-        // Highest index is the character in the foreground
-        public string[] leftCharacters = new string[5];
-        public string[] rightCharacters = new string[5];
+        [HideInInspector]
+        public int lCount, rCount;
 
-        private string error = "error";
+        public static int separator = 5;
 
-        public int lCount = 0;
-        public int rCount = 0;
-
-        [Button]
-        public void ResetSideSize()
+        /// <summary>
+        /// Clears and re-initializes data structures
+        /// </summary>
+        public void Clear()
         {
-            leftCharacters = new string[separator];
-            rightCharacters = new string[separator];
+            characters = new Dictionary<string, CharacterInDialogue>();
+            charsByPos = new string[separator * 2];
         }
 
-        public void MoveCharacter(string charID, Position pos)
+        /// <summary>
+        /// Inserts new character into the scene
+        /// </summary>
+        /// <param name="charID">charID of new character</param>
+        /// <param name="pos">Position to add new character</param>
+        /// <returns>Transition to be visualized</returns>
+        private DTransition AddCharacter(string charID, int pos)
         {
-            if(InsertCharacter(charID, pos))
-                return;
+            if (characters.ContainsKey(charID))
+                return new DTransition(DTransitionEnum.Error, 0, 0, charID);
 
-            Debug.Log("Moving");
-            Remove(charactersDict[charID]);
-            InsertCharacter(charID, pos);
-        }
-
-        [Button]
-        public bool InsertCharacter(string charID, Position side)
-        {
-            if (charactersDict == null)
-                charactersDict = new Dictionary<string, int>();
-            if (charactersDict.ContainsKey(charID))
-                return false;
-
-            int pos;
-
-            if(side == Position.R)
-            {
-                pos = separator * 2 - 1;
-                rCount++;
-            } else
-            {
-                pos = separator - 1;
-                lCount++;
-            }
-
-            string overflow = Insert(charID, pos);
+            DTransition transition = new DTransition(DTransitionEnum.Add, 0, pos, charID);
             
-            if(overflow == "")
-            {
-                if (side == Position.R)
-                {
-                    rCount--;
-                }
-                else
-                {
-                    lCount--;
-                }
-            }
-
-            if (lCount >= separator)
-                lCount = separator - 1;
-            if (rCount >= separator)
-                rCount = separator - 1;
-
-            return true;
-
+            // TODO: Make appropriate changes to data structures:
+            // 1. Read the CharacterData from the DialogueDataStructs Instance
+            CharacterData data = DialogueDataStructs.Instance.characters[charID];
+            // 2. Make instance of CharacterInDialogue and add it to the dictionary
+            CharacterInDialogue cInDialogue = new CharacterInDialogue(data);
+            cInDialogue.pos = pos;
+            characters.Add(charID, cInDialogue);
+            // 3. Handle array overflow by removing that character from the scene
+            
+            return transition;
         }
 
         /// <summary>
         /// Removes character from scene
         /// </summary>
-        /// <param name="pos">Index of item to remove</param>
-        /// <returns>Removed string</returns>
-        private string Remove(int pos)
+        /// <param name="charID">ID of the character that needs removal</param>
+        /// <returns>Transition to be visualized</returns>
+        public DTransition RemoveCharacter(string charID)
         {
-            if (!charactersDict.ContainsKey(GetCharacter(pos)))
-                return error;
+            int charPos = 0;
+            // TODO: Get character position
+            DTransition transition = new DTransition(DTransitionEnum.Remove, charPos, 0, charID);
 
-            int low;
-            if (pos >= separator)
-            {
-                low = separator;
-                rCount--;
-                if (rCount < 0)
-                    rCount = 0;
-            } else
-            {
-                low = 0;
-                lCount--;
-                if (lCount < 0)
-                    lCount = 0;
-            }
-            int emptyCount = 0;
+            // TODO: Make appropriate changes to data structures:
+            // 1. Set the instance of the CharacterInDialogue to null
 
-            ref string retVal = ref GetCharacter(pos);
-            charactersDict.Remove(retVal);
-            retVal = "";
+            return transition;
 
-            for(int i = pos; i >= low; i--)
-            {
-                string charID = GetCharacter(i);
-
-                if (charID == "")
-                    emptyCount++;
-                else
-                {
-                    ref string toChange = ref GetCharacter(i + 1);
-                    if (toChange != error)
-                    {
-                        toChange = charID;
-                        charactersDict[charID] = i;
-                    } else
-                    {
-                        Debug.LogError("Out of bounds in RemoveShift!");
-                    }
-                }
-            }
-
-            return retVal;
         }
-
 
         /// <summary>
-        /// Inserts new character into the scene
+        /// Moves character with given ID to a given position
         /// </summary>
-        /// <param name="charIDin">charID of new character</param>
-        /// <param name="pos">Position to add new character</param>
-        /// <returns>charID of overflow, "" if no overflow, and error if character exists in scene</returns>
-        private string Insert(string charIDin, int pos)
+        /// <param name="charID">Character ID of character to be moved</param>
+        /// <param name="pos">Position character is being moved to</param>
+        /// <returns>Transition to be visualized</returns>
+        public DTransition MoveCharacter(string charID, int pos)
         {
-            if (charactersDict.ContainsKey(charIDin) || GetCharacter(pos) == error)
-                return error;
+            int charPos = 0;
+            // TODO: Get character position
+            DTransition transition = new DTransition(DTransitionEnum.Move, charPos, pos, charID);
 
-
-            int low = 0;
-            if (pos >= separator)
-                low = separator;
-
-            string overflow = GetCharacter(low);
-
-            for (int i = low; i < pos; i++)
-            {
-                ref string charID = ref GetCharacter(i);
-
-                //charactersDict[charID] = i - 1;
-                charID = GetCharacter(i + 1);
-                charactersDict[charID] = i;
-            }
-
-            if (charactersDict.ContainsKey(overflow))
-                charactersDict.Remove(overflow);
-
-            charactersDict.Add(charIDin, pos);
-            ref string charIDold = ref GetCharacter(pos);
-            charIDold = charIDin;
-
-            return overflow;
+            return transition;
         }
 
-        public ref string GetCharacter(int pos)
+        /// <summary>
+        /// Function that brings a character to the foreground
+        /// </summary>
+        /// <param name="charID">ID of character to be affected</param>
+        /// <returns>Transition to be visualized</returns>
+        public DTransition AddLightCharacter(string charID)
         {
-            if (pos < separator && pos >= 0)
-                return ref leftCharacters[pos];
-            else if (pos >= separator && pos < 2 * separator)
-                return ref rightCharacters[pos - separator];
-            else
-                return ref error;
+            int charPos = 0;
+            // TODO: Get character position
+            DTransition transition = new DTransition(DTransitionEnum.AddLight, 0, charPos, charID);
+
+            return transition;
         }
 
-        public void UpdateDictionary(int insertIdx)
+        /// <summary>
+        /// Function that brings a character to the foreground
+        /// </summary>
+        /// <param name="charID">ID of character to be affected</param>
+        /// <returns>Transition to be visualized</returns>
+        public DTransition FadeLightCharacter(string charID)
         {
-            
+            int charPos = 0;
+            // TODO: Get character position
+            DTransition transition = new DTransition(DTransitionEnum.FadeLight, charPos, 0, charID);
+
+            return transition;
         }
 
-        public int GetCharacterPosition(string charID)
-        {
-            if (!charactersDict.ContainsKey(charID))
-                return -1;
 
-            int ret = charactersDict[charID];
-
-            return ret % separator;
-        }
     }
-
 }
