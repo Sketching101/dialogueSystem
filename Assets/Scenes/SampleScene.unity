@@ -322,13 +322,33 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: characters
+    - Name: charSpriteCanvas
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Dialogue.CharacterData,
-        Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.UI.Image,
+        UnityEngine.UI]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: characters
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Dialogue.CharacterData,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 3|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
         mscorlib]], mscorlib
     - Name: 
       Entry: 8
@@ -368,35 +388,46 @@ MonoBehaviour:
       Data: 
   parseDialogue: {fileID: 4900000, guid: c12fd9206d2735a4fbe95c44d670ab00, type: 3}
   dialogueBox: {fileID: 544353538}
-  lSpriteCanvas:
-  - {fileID: 2095055541}
-  - {fileID: 1745990198}
-  - {fileID: 2022526818}
-  - {fileID: 507563961}
-  - {fileID: 179081232}
-  rSpriteCanvas:
-  - {fileID: 1478821701}
-  - {fileID: 504925059}
-  - {fileID: 124864197}
-  - {fileID: 817082481}
-  - {fileID: 2040916409}
   activeChar: {r: 1, g: 1, b: 1, a: 1}
   passiveChar: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 0.5176471}
   dialogueMap: {fileID: 392671945}
   dialogueSetup: '[10][[anna00][sad][L][L]][[gaius00][angry][R][L]]
 
-    /* tag|mood|side|facing|dialogue|
-    */
+    /* tag|mood|SIDE|Action|action,
+    arguments|dialogue| */
 
 '
   dialogueTxt:
-  - dialogueText: Buttons!
-  - dialogueText: Line 2!
-  - dialogueText: Line 3!
-  - dialogueText: Line 4? What even is a line?
-  - dialogueText: 
-  - dialogueText: Hi I'm here now...
+  - transition: 2
+    args:
+    - 4
+    dialogueText: Buttons!
+  - transition: 3
+    args:
+    - 3
+    dialogueText: Line 2!
+  - transition: 4
+    args:
+    - anna00
+    dialogueText: Line 3!
+  - transition: 0
+    args:
+    - 
+    dialogueText: Line 4? What even is a line?
+  - transition: 1
+    args:
+    - 
+    dialogueText: 
+  - transition: 2
+    args:
+    - 7
+    dialogueText: 
+  - transition: 0
+    args:
+    - 
+    dialogueText: Hi I'm here now...
   dialogueIndex: 0
+  transitionList: []
 --- !u!114 &392671945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +469,17 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  charsByPos:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   lCount: 0
   rCount: 0
 --- !u!1 &504925057
@@ -1109,7 +1151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: 0
-  dMap: {fileID: 0}
+  dMap: {fileID: 392671945}
   parentTr: {fileID: 0}
   spriteTransforms: []
 --- !u!1 &1082664940
@@ -1365,7 +1407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: 0
-  dMap: {fileID: 0}
+  dMap: {fileID: 392671945}
   parentTr: {fileID: 0}
   spriteTransforms: []
 --- !u!1 &1340617529
@@ -1482,7 +1524,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 392671944}
-        m_MethodName: DrawCurrentDialogue
+        m_MethodName: OnDialogueLineNext
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

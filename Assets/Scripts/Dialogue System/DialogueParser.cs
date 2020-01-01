@@ -16,8 +16,7 @@ namespace Dialogue
         public TextMeshProUGUI dialogueBox;
 
         [Header("Sprite Items")]
-        public Image[] lSpriteCanvas;
-        public Image[] rSpriteCanvas;
+        public Dictionary<string, Image> charSpriteCanvas = new Dictionary<string, Image>();
         public Color activeChar;
         public Color passiveChar;
 
@@ -31,6 +30,9 @@ namespace Dialogue
         public Dictionary<string, CharacterData> characters = new Dictionary<string, CharacterData>();
 
         private Dictionary<string, charInDialogue> chars = new Dictionary<string, charInDialogue>();
+
+        [SerializeField]
+        private List<DTransition> transitionList = new List<DTransition>();
 
         private void Awake()
         {
@@ -75,16 +77,19 @@ namespace Dialogue
         {
             string charID = "";
             Mood mood = Mood.INVALID;
-            Position pos = Position.INVALID;
             Dir lookDir = Dir.INVALID;
+            DTransitionEnum transition = DTransitionEnum.None;
             string text = "";
 
             int len = line.Length;
 
-            string curParam = ""; 
+            string curParam = "";
+            string[] paramArr = new string[1];
+
             int paramIdx = -1;
 
             bool isValid = true;
+
 
             for (int i = 0; i < len; i++)
             {
@@ -101,18 +106,21 @@ namespace Dialogue
                             charID = curParam;
                             break;
                         case 1:
-                            if (!DialogueHelper.GetEnum<Mood>(curParam, out mood))
+                            if (!DialogueHelper.GetEnum(curParam, out mood))
                                 isValid = false;
                             break;
                         case 2:
-                            if (!DialogueHelper.GetEnum<Position>(curParam, out pos))
+                            if (!DialogueHelper.GetEnum(curParam, out lookDir))
                                 isValid = false;
                             break;
                         case 3:
-                            if (!DialogueHelper.GetEnum<Dir>(curParam, out lookDir))
-                                isValid = false;
+                            if (!DialogueHelper.GetEnum(curParam, out transition))
+                                transition = DTransitionEnum.None;
                             break;
                         case 4:
+                            paramArr = curParam.Split(',');
+                            break;
+                        case 5:
                             text = curParam;
                             break;
                     }
@@ -123,35 +131,61 @@ namespace Dialogue
                 }
             }
 
-            dLine = new DialogueLine(charID, mood, pos, lookDir, text);
+            dLine = new DialogueLine(charID, mood, lookDir, text, transition, paramArr);
 
             return isValid;
         }
 
-
         public virtual void OnDialogueStart()
         {
-
+            OnDialogueLineNext();
         }
 
         public virtual void OnDialogueEnd()
         {
-
+            Debug.Log("End!");
         }
 
-        public virtual void OnDialogueLineStart()
+        public void OnDialogueLineStart(DialogueLine dLine)
         {
+            int pos = 0;
 
+            DTransition transition = new DTransition(DTransitionEnum.None, 0, 0, dLine.character.charID);
+
+            switch (dLine.transition)
+            {
+                case DTransitionEnum.Add:
+                    if (int.TryParse(dLine.args[0], out pos)) 
+                        transition = dialogueMap.AddCharacter(dLine.character.charID, pos);
+                    break;
+                case DTransitionEnum.Move:
+                    if (int.TryParse(dLine.args[0], out pos))
+                        transition = dialogueMap.MoveCharacter(dLine.character.charID, pos);
+                    break;
+                case DTransitionEnum.Remove:
+                    transition = dialogueMap.RemoveCharacter(dLine.character.charID);
+                    break;
+            }
+
+            transitionList.Add(transition);
         }
 
-        public virtual void OnDialogueLineEnd()
+        public virtual void OnDialogueLineEnd(DialogueLine dLine)
         {
-
+       //     transitionList.Clear();
+            dialogueIndex++;
         }
 
         public virtual void OnDialogueLineNext()
         {
-
+            if (dialogueIndex < dialogueTxt.Length)
+            {
+                OnDialogueLineStart(dialogueTxt[dialogueIndex]);
+                OnDialogueLineEnd(dialogueTxt[dialogueIndex]);
+            } else
+            {
+                OnDialogueEnd();
+            }
         }
 
     }
@@ -160,12 +194,16 @@ namespace Dialogue
     public struct DialogueLine
     {
         public charInDialogue character;
+        public DTransitionEnum transition;
+        public string[] args;
         public string dialogueText;
 
-        public DialogueLine(string charID_in, Mood mood_in, Position pos_in, Dir lookDir_in, string dialogueText_in)
+        public DialogueLine(string charID_in, Mood mood_in, Dir lookDir_in, string dialogueText_in, DTransitionEnum transition_in, string[] args_in)
         {
-            character = new charInDialogue(charID_in, mood_in, pos_in, lookDir_in);
+            transition = transition_in;
+            character = new charInDialogue(charID_in, mood_in, lookDir_in);
             dialogueText = dialogueText_in;
+            args = args_in;
         }
     }
 
@@ -173,14 +211,12 @@ namespace Dialogue
     {
         public string charID;
         public Mood mood;
-        public Position pos;
         public Dir lookDir;
 
-        public charInDialogue(string charID_in, Mood mood_in, Position pos_in, Dir lookDir_in)
+        public charInDialogue(string charID_in, Mood mood_in, Dir lookDir_in)
         {
             charID = charID_in;
             mood = mood_in;
-            pos = pos_in;
             lookDir = lookDir_in;
         }
 
