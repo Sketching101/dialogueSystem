@@ -17,6 +17,7 @@ namespace Dialogue {
                     return dMap.rCount;
             }
         }
+
         private int lastCount;
 
         public RectTransform parentTr;
