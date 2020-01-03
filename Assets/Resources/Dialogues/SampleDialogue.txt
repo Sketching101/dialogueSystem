@@ -3,8 +3,9 @@
 /* tag|mood|SIDE|Action|action, arguments|dialogue| */
 #[anna00][sad][L][Add][4]: [Buttons!]
 #[anna00][happy][R][Move][3]: [Line 2!]
-#[anna00][happy][R][AddLight][anna00]: [Line 3!]
-#[anna00][angry][R][][]: [Line 4? What even is a line?]
-#[anna00][sad][L][Remove][]: []
-#[gaius00][angry][L][Add][7]: []
+#[anna00][happy][L][AddLight][anna00]: [Line 3!]
+#[anna00][angry][L][][]: [Line 4? What even is a line?]
+#[anna00][happy][R][Move][8]: [Ugh!]
+#[anna00][sad][R][Remove][]: []
+#[gaius00][angry][R][Add][7]: []
 #[gaius00][happy][L][][]: [Hi I'm here now...]

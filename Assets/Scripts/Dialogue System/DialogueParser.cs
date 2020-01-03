@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using JetBrains.Annotations;
+using UnityEditor.Animations;
+using TreeEditor;
 
 namespace Dialogue
 {
@@ -148,6 +150,17 @@ namespace Dialogue
 
         public void OnDialogueLineStart(DialogueLine dLine)
         {
+            ParseDialogueLineForTransition(dLine);
+
+            for (int i = transitionList.Count - 1; i >= 0; i--)
+            {
+                DialogueTransitionHandler.HandleTransition(transitionList[i]);
+                transitionList.RemoveAt(i);
+            }
+        }
+
+        public void ParseDialogueLineForTransition(DialogueLine dLine)
+        {
             int pos = 0;
 
             DTransition transition = new DTransition(DTransitionEnum.None, 0, 0, dLine.character.charID, null);
@@ -157,19 +170,17 @@ namespace Dialogue
                 case DTransitionEnum.Add:
                     if (int.TryParse(dLine.args[0], out pos))
                     {
-                        dialogueMap.UpdateCharacterMood(dLine.character.charID, dLine.character.mood);
-                        transition = dialogueMap.AddCharacter(dLine.character.charID, pos);
+                        transition = dialogueMap.AddCharacter(dLine.character.charID, pos, dLine.character.mood);
                     }
                     break;
                 case DTransitionEnum.Move:
                     if (int.TryParse(dLine.args[0], out pos))
                     {
-                        dialogueMap.UpdateCharacterMood(dLine.character.charID, dLine.character.mood);
-                        transition = dialogueMap.MoveCharacter(dLine.character.charID, pos);
+                        transition = dialogueMap.MoveCharacter(dLine.character.charID, pos, dLine.character.mood);
                     }
                     break;
                 case DTransitionEnum.Remove:
-                    transition = dialogueMap.RemoveCharacter(dLine.character.charID);
+                    transition = dialogueMap.RemoveCharacter(dLine.character.charID, dLine.character.mood);
                     break;
             }
 

@@ -17,17 +17,16 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 21300000, guid: fc5b036bcd89bb24aa31343bc1b97af1, type: 3}
-    - {fileID: 21300000, guid: d1c7a3166d94c054d900763607d2b5a5, type: 3}
+    - {fileID: 21300000, guid: 5fac337817a9b48439edf20f0431fae3, type: 3}
     - {fileID: 21300000, guid: 8e0d0f56dedd0c844be275b70e587445, type: 3}
     - {fileID: 21300000, guid: 07affbc934861f9408f39002a97610ea, type: 3}
     - {fileID: 21300000, guid: 54b0e8fba6517224c8d032b3302ccfec, type: 3}
-    - {fileID: 21300000, guid: 5fac337817a9b48439edf20f0431fae3, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: mood
+    - Name: sprites
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Dialogue.Mood, Assembly-CSharp],[Dialogue.MoodSprite,
         Assembly-CSharp]], mscorlib
@@ -112,7 +111,7 @@ MonoBehaviour:
       Data: 4
     - Name: rightSprite
       Entry: 10
-      Data: 5
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

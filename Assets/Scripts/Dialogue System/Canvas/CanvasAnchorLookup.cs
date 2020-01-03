@@ -10,6 +10,7 @@ namespace Dialogue
         public static CanvasAnchorLookup Instance { get; private set; }
 
         public RectTransform[] canvasArr = new RectTransform[10];
+        public RectTransform outOfScene;
 
         private void Awake()
         {

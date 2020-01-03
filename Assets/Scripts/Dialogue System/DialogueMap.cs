@@ -39,9 +39,10 @@ namespace Dialogue
         /// </summary>
         /// <param name="charID">ID of the character</param>
         /// <param name="mood">Next mood</param>
-        public void UpdateCharacterMood(string charID, Mood mood)
+        private void UpdateCharacterMood(string charID, Mood mood)
         {
-            characters[charID].mood = mood;
+            if(mood != Mood.INVALID)    
+                characters[charID].mood = mood;
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace Dialogue
         /// <param name="pos">Position to add new character</param>
         /// <returns>Transition to be visualized</returns>
         [Button]
-        public DTransition AddCharacter(string charID, int pos)
+        public DTransition AddCharacter(string charID, int pos, Mood mood = Mood.INVALID)
         {
             if (characters.ContainsKey(charID))
                 return new DTransition(DTransitionEnum.Error, 0, 0, charID, null);
@@ -75,6 +76,8 @@ namespace Dialogue
 
             UpdateCharacterPositions();
 
+            UpdateCharacterMood(charID, mood);
+
             DTransition transition = new DTransition(DTransitionEnum.Add, -1, pos, charID, cInDialogue.GetSprite());
 
             return transition;
@@ -86,7 +89,7 @@ namespace Dialogue
         /// <param name="charID">ID of the character that needs removal</param>
         /// <returns>Transition to be visualized</returns>
         [Button]
-        public DTransition RemoveCharacter(string charID)
+        public DTransition RemoveCharacter(string charID, Mood mood = Mood.INVALID)
         {
             int charPos = characters[charID].pos;
 
@@ -109,7 +112,7 @@ namespace Dialogue
         /// <param name="pos">Position character is being moved to</param>
         /// <returns>Transition to be visualized</returns>
         [Button]
-        public DTransition MoveCharacter(string charID, int pos)
+        public DTransition MoveCharacter(string charID, int pos, Mood mood = Mood.INVALID)
         {
             int charPos = characters[charID].pos;
 
@@ -125,6 +128,8 @@ namespace Dialogue
 
             UpdateCharacterPositions();
 
+            UpdateCharacterMood(charID, mood);
+
             DTransition transition = new DTransition(DTransitionEnum.Move, charPos, pos, charID, characters[charID].GetSprite());
 
             return transition;
@@ -136,9 +141,11 @@ namespace Dialogue
         /// <param name="charID">ID of character to be affected</param>
         /// <returns>Transition to be visualized</returns>
         [Button]
-        public DTransition AddLightCharacter(string charID)
+        public DTransition AddLightCharacter(string charID, Mood mood = Mood.INVALID)
         {
             int charPos = characters[charID].pos;
+
+            UpdateCharacterMood(charID, mood);
 
             DTransition transition = new DTransition(DTransitionEnum.AddLight, 0, charPos, charID, characters[charID].GetSprite());
 
@@ -151,9 +158,11 @@ namespace Dialogue
         /// <param name="charID">ID of character to be affected</param>
         /// <returns>Transition to be visualized</returns>
         [Button]
-        public DTransition FadeLightCharacter(string charID)
+        public DTransition FadeLightCharacter(string charID, Mood mood = Mood.INVALID)
         {
             int charPos = characters[charID].pos;
+
+            UpdateCharacterMood(charID, mood);
 
             DTransition transition = new DTransition(DTransitionEnum.FadeLight, charPos, 0, charID, characters[charID].GetSprite());
 

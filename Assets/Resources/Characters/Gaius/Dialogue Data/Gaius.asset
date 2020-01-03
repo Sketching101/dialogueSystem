@@ -18,16 +18,16 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 21300000, guid: 030c70c59dfd011479ce1bb49ff5f6fe, type: 3}
     - {fileID: 21300000, guid: a9400edacc199c24abd36b25db19a0c1, type: 3}
-    - {fileID: 21300000, guid: fdea8bd9fe2233f43838a4550cf6d0aa, type: 3}
-    - {fileID: 21300000, guid: 52e3b51f4df0ee246b491e84a644208b, type: 3}
     - {fileID: 21300000, guid: 506ff946af0391c4592ebe5bc280d839, type: 3}
     - {fileID: 21300000, guid: 114ff4d0e5f419748b0b6cd92c4f3078, type: 3}
+    - {fileID: 21300000, guid: fdea8bd9fe2233f43838a4550cf6d0aa, type: 3}
+    - {fileID: 21300000, guid: 52e3b51f4df0ee246b491e84a644208b, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: mood
+    - Name: sprites
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Dialogue.Mood, Assembly-CSharp],[Dialogue.MoodSprite,
         Assembly-CSharp]], mscorlib
@@ -76,13 +76,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: $v
       Entry: 7
       Data: Dialogue.MoodSprite, Assembly-CSharp
     - Name: mood
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: leftSprite
       Entry: 10
       Data: 2
@@ -100,13 +100,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: $v
       Entry: 7
       Data: Dialogue.MoodSprite, Assembly-CSharp
     - Name: mood
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: leftSprite
       Entry: 10
       Data: 4

@@ -1601,6 +1601,7 @@ MonoBehaviour:
   - {fileID: 124864196}
   - {fileID: 817082480}
   - {fileID: 2040916408}
+  outOfScene: {fileID: 839263284}
 --- !u!1 &1478821699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,7 +1725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charTr: {fileID: 0}
   charSprite: {fileID: 0}
-  curAnchor: {fileID: 2040916408}
+  curAnchor: {fileID: 839263284}
   catchUpToAnchor: 0
 --- !u!1 &1745990196
 GameObject:
@@ -1950,7 +1951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charTr: {fileID: 0}
   charSprite: {fileID: 0}
-  curAnchor: {fileID: 179081231}
+  curAnchor: {fileID: 839263284}
   catchUpToAnchor: 0
 --- !u!1 &2095055539
 GameObject:
