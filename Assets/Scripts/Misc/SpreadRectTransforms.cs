@@ -7,6 +7,7 @@ namespace Dialogue {
     {
         public Position pos;
         public DialogueMap dMap;
+        
         public int spriteCount
         {
             get
@@ -25,10 +26,12 @@ namespace Dialogue {
 
         private void Awake()
         {
-            lastCount = 0;
-            spriteTransforms = GetComponentsInChildren<RectTransform>();
+            if (spriteTransforms == null)
+                spriteTransforms = GetComponentsInChildren<RectTransform>();
             if (parentTr == null)
                 parentTr = GetComponent<RectTransform>();
+
+            lastCount = -1;
         }
 
         private void Update()
@@ -44,20 +47,28 @@ namespace Dialogue {
         private void ArrangeSprites(int count)
         {
             if (count == 0)
-                return;
+                count = 5;
 
             float width = parentTr.rect.width;
 
-            float segmentWidth = width / (count * 2);
+            float segmentWidth = width / (count + 1);
 
-            width += segmentWidth;
-            segmentWidth *= 2;
-
-            for(int i = spriteTransforms.Length - 1; i >= count; i--)
+            int j = 0;
+            for(int i = spriteTransforms.Length - 1; i >= spriteTransforms.Length - count; i--)
             {
-                Vector3 oldPos = spriteTransforms[i].localPosition;
-                oldPos.x = width - segmentWidth - width/2;
-                spriteTransforms[i].localPosition = oldPos;
+                Vector3 oldPos = spriteTransforms[i].anchoredPosition;
+
+                if (pos == Position.L)
+                {
+                    oldPos.x = segmentWidth * (j + 1);
+                }
+                else
+                {
+                    oldPos.x = segmentWidth * (j + 1) * -1;
+                }
+
+                spriteTransforms[i].anchoredPosition = oldPos;
+                j++;
             }
         }
     }

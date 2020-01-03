@@ -35,6 +35,16 @@ namespace Dialogue
         }
 
         /// <summary>
+        /// Updates the CharacterInDialogue mood of a given character
+        /// </summary>
+        /// <param name="charID">ID of the character</param>
+        /// <param name="mood">Next mood</param>
+        public void UpdateCharacterMood(string charID, Mood mood)
+        {
+            characters[charID].mood = mood;
+        }
+
+        /// <summary>
         /// Inserts new character into the scene
         /// </summary>
         /// <param name="charID">ID of new character</param>
@@ -44,7 +54,7 @@ namespace Dialogue
         public DTransition AddCharacter(string charID, int pos)
         {
             if (characters.ContainsKey(charID))
-                return new DTransition(DTransitionEnum.Error, 0, 0, charID);
+                return new DTransition(DTransitionEnum.Error, 0, 0, charID, null);
             
             // 1. Read the CharacterData from the DialogueDataStructs Instance
             CharacterData data = DialogueDataStructs.Instance.characters[charID];
@@ -65,7 +75,7 @@ namespace Dialogue
 
             UpdateCharacterPositions();
 
-            DTransition transition = new DTransition(DTransitionEnum.Add, -1, pos, charID);
+            DTransition transition = new DTransition(DTransitionEnum.Add, -1, pos, charID, cInDialogue.GetSprite());
 
             return transition;
         }
@@ -86,7 +96,7 @@ namespace Dialogue
 
             UpdateCharacterPositions();
 
-            DTransition transition = new DTransition(DTransitionEnum.Remove, charPos, -1, charID);
+            DTransition transition = new DTransition(DTransitionEnum.Remove, charPos, -1, charID, null);
 
             return transition;
 
@@ -115,7 +125,7 @@ namespace Dialogue
 
             UpdateCharacterPositions();
 
-            DTransition transition = new DTransition(DTransitionEnum.Move, charPos, pos, charID);
+            DTransition transition = new DTransition(DTransitionEnum.Move, charPos, pos, charID, characters[charID].GetSprite());
 
             return transition;
         }
@@ -130,7 +140,7 @@ namespace Dialogue
         {
             int charPos = characters[charID].pos;
 
-            DTransition transition = new DTransition(DTransitionEnum.AddLight, 0, charPos, charID);
+            DTransition transition = new DTransition(DTransitionEnum.AddLight, 0, charPos, charID, characters[charID].GetSprite());
 
             return transition;
         }
@@ -145,7 +155,7 @@ namespace Dialogue
         {
             int charPos = characters[charID].pos;
 
-            DTransition transition = new DTransition(DTransitionEnum.FadeLight, charPos, 0, charID);
+            DTransition transition = new DTransition(DTransitionEnum.FadeLight, charPos, 0, charID, characters[charID].GetSprite());
 
             return transition;
         }
@@ -153,14 +163,25 @@ namespace Dialogue
         private void UpdateCharacterPositions()
         {
             DataStructHelpers.Coalesce(charsByPos, separator, "");
+            int lTemp = 0, rTemp = 0;
 
             for (int i = 0; i < charsByPos.Length; i++)
             {
                 if (characters.ContainsKey(charsByPos[i]))
+                {
                     characters[charsByPos[i]].pos = i;
+
+                    if (i < charsByPos.Length / 2)
+                        lTemp++;
+                    else
+                        rTemp++;
+                }
                 else if (charsByPos[i] != "")
                     charsByPos[i] = "";
             }
+
+            lCount = lTemp;
+            rCount = rTemp;
         }
     }
 }

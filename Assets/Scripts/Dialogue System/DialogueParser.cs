@@ -29,7 +29,7 @@ namespace Dialogue
         [DictionaryDrawerSettings(KeyLabel = "Character ID", ValueLabel = "Character Asset")]
         public Dictionary<string, CharacterData> characters = new Dictionary<string, CharacterData>();
 
-        private Dictionary<string, charInDialogue> chars = new Dictionary<string, charInDialogue>();
+        private Dictionary<string, CharInDialogue> chars = new Dictionary<string, CharInDialogue>();
 
         [SerializeField]
         private List<DTransition> transitionList = new List<DTransition>();
@@ -150,17 +150,23 @@ namespace Dialogue
         {
             int pos = 0;
 
-            DTransition transition = new DTransition(DTransitionEnum.None, 0, 0, dLine.character.charID);
+            DTransition transition = new DTransition(DTransitionEnum.None, 0, 0, dLine.character.charID, null);
 
             switch (dLine.transition)
             {
                 case DTransitionEnum.Add:
-                    if (int.TryParse(dLine.args[0], out pos)) 
+                    if (int.TryParse(dLine.args[0], out pos))
+                    {
+                        dialogueMap.UpdateCharacterMood(dLine.character.charID, dLine.character.mood);
                         transition = dialogueMap.AddCharacter(dLine.character.charID, pos);
+                    }
                     break;
                 case DTransitionEnum.Move:
                     if (int.TryParse(dLine.args[0], out pos))
+                    {
+                        dialogueMap.UpdateCharacterMood(dLine.character.charID, dLine.character.mood);
                         transition = dialogueMap.MoveCharacter(dLine.character.charID, pos);
+                    }
                     break;
                 case DTransitionEnum.Remove:
                     transition = dialogueMap.RemoveCharacter(dLine.character.charID);
@@ -193,7 +199,7 @@ namespace Dialogue
     [System.Serializable]
     public struct DialogueLine
     {
-        public charInDialogue character;
+        public CharInDialogue character;
         public DTransitionEnum transition;
         public string[] args;
         public string dialogueText;
@@ -201,25 +207,23 @@ namespace Dialogue
         public DialogueLine(string charID_in, Mood mood_in, Dir lookDir_in, string dialogueText_in, DTransitionEnum transition_in, string[] args_in)
         {
             transition = transition_in;
-            character = new charInDialogue(charID_in, mood_in, lookDir_in);
+            character = new CharInDialogue(charID_in, mood_in, lookDir_in);
             dialogueText = dialogueText_in;
             args = args_in;
         }
     }
 
-    public struct charInDialogue
+    public struct CharInDialogue
     {
         public string charID;
         public Mood mood;
         public Dir lookDir;
 
-        public charInDialogue(string charID_in, Mood mood_in, Dir lookDir_in)
+        public CharInDialogue(string charID_in, Mood mood_in, Dir lookDir_in)
         {
             charID = charID_in;
             mood = mood_in;
             lookDir = lookDir_in;
         }
-
-
     }
 }

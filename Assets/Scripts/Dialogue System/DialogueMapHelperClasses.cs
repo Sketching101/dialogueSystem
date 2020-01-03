@@ -26,12 +26,16 @@ namespace Dialogue
         // For each transition
         public string charID;
 
-        public DTransition(DTransitionEnum tType, int pFrom, int pTo, string cID)
+        // For each transition
+        public Sprite nextSprite;
+
+        public DTransition(DTransitionEnum tType, int pFrom, int pTo, string cID, Sprite sprite = null)
         {
             transitionType = tType;
             posTo = pTo;
             posFrom = pFrom;
             charID = cID;
+            nextSprite = sprite;
         }
     }
 
