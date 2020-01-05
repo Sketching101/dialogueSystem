@@ -341,7 +341,11 @@ MonoBehaviour:
   - transition: 1
     args:
     - 
-    dialogueText: 
+    dialogueText: Ugh!
+  - transition: 3
+    args:
+    - 8
+    dialogueText: Ugh!
   - transition: 2
     args:
     - 7

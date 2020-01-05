@@ -8,4 +8,6 @@
 #[anna00][happy][R][Move][8]: [Ugh!]
 #[anna00][sad][R][Remove][]: []
 #[gaius00][angry][R][Add][7]: []
-#[gaius00][happy][L][][]: [Hi I'm here now...]
+#[gaius00][happy][L][Move][1]: [Hi I'm here now...]
+#[gaius00][sad][R][][]: []
+#[anna00][angry][L][Add][8]: [I'm back!]

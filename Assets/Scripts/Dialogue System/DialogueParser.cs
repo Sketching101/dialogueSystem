@@ -36,6 +36,8 @@ namespace Dialogue
         [SerializeField]
         private List<DTransition> transitionList = new List<DTransition>();
 
+        private IEnumerator writeLineCoroutine;
+
         private void Awake()
         {
             dialogueIndex = 0;
@@ -157,6 +159,8 @@ namespace Dialogue
                 DialogueTransitionHandler.HandleTransition(transitionList[i]);
                 transitionList.RemoveAt(i);
             }
+
+            WriteLine(dLine.dialogueText, 4);
         }
 
         public void ParseDialogueLineForTransition(DialogueLine dLine)
@@ -205,6 +209,35 @@ namespace Dialogue
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <param name="waitBetweenPrints"></param>
+        private void WriteLine(string txt, float waitBetweenPrints = 1)
+        {
+            if(writeLineCoroutine != null)
+                StopCoroutine(writeLineCoroutine);
+
+            writeLineCoroutine = WriteLineCoroutine(txt, waitBetweenPrints, dialogueBox);
+            StartCoroutine(writeLineCoroutine);
+        }
+
+        private IEnumerator WriteLineCoroutine(string txt, float waitBetweenPrints, TextMeshProUGUI textBox)
+        {
+            textBox.text = "";
+            for(int i = 0; i < txt.Length; i++)
+            {
+                textBox.text = txt.Substring(0, i);
+                for(int j = 0; j < waitBetweenPrints; j++)
+                {
+                    yield return null;
+                }
+                yield return null;
+            }
+
+            yield return null;
+        }
     }
 
     [System.Serializable]
